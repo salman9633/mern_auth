@@ -10,7 +10,7 @@ import generateToken from "../utils/generateToken.js";
 const auth = asyncHandler(async (req, res) => {
     const { email, password } = req.body
 
-    const user =await User.findOne({ email })
+    const user = await User.findOne({ email })
 
     if (user && (await user.matchPassword(password))) {
         generateToken(res, user._id)
@@ -64,30 +64,40 @@ const registerUser = asyncHandler(async (req, res) => {
 //Route    POST api/users/logout
 //Access   public
 const logoutUser = asyncHandler(async (req, res) => {
-    res.cookie('jwt','',{
-        httpOnly:true,
+    res.cookie('jwt', '', {
+        httpOnly: true,
         expires: new Date(0)
     });
-    res.status(200).json({message:'User Logged Out'})
+    res.status(200).json({ message: 'User Logged Out' })
 })
 
 //Desc     Get user Prodfile
 //Route    GET api/users/profile
 //Access   Private
 const getUserProfile = asyncHandler(async (req, res) => {
-    console.log(req.user);
-    res.status(200).json({
-        message: "user profile"
-    });
+    const user = req.user;
+    res.status(200).json(user);
 })
 
 //Desc     Update user Prodfile
 //Route    PUT api/users/profile
 //Access   Private
 const updaterUserProfile = asyncHandler(async (req, res) => {
-    res.status(200).json({
-        message: "update profile"
-    });
+    const user = await User.findById(req.user._id);
+    
+    if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+
+        if (req.body.password) {
+            user.password = req.body.password
+        }
+        const updatedUser=await user?.save();
+        res.status(200).json(updatedUser)
+    } else {
+        res.status(404);
+        throw new Error('user not found')
+    }
 })
 
 export {
