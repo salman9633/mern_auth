@@ -1,2 +1,10 @@
 .env
 node_modules
+
+
+# frontend folders
+frontend/node_modules
+frontend/.eslintrc.cjs
+frontend/src/vite-env.d.ts
+frontend/vite.config.ts
+frontend/.gitignore
