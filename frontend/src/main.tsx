@@ -10,11 +10,13 @@ import App from './App.tsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import Home from './pages/Home.tsx'
+import LogInPage from './pages/LogInPage.tsx'
 
 const router= createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
       <Route index={true} path='/' element={<Home></Home>}/>
+      <Route path='/login' element={<LogInPage></LogInPage>}/>
     </Route>
   )
 )
