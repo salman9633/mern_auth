@@ -1,11 +1,15 @@
-import React from 'react'
+import Headers from "./components/Headers"
+import { Container } from 'react-bootstrap'
+import { Outlet } from 'react-router-dom'
+
 
 const App = () => {
   return (
     <div>
-      <h1>
-        MERN Auth
-      </h1>
+      <Headers></Headers>
+      <Container className="my-5">
+      <Outlet></Outlet>
+      </Container>
     </div>
   )
 }
