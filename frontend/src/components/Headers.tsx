@@ -1,8 +1,10 @@
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const Headers = () => {
+    const { userInfo } = useSelector((state: any) => state.auth)
     return (
         <header>
             <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
@@ -11,16 +13,39 @@ const Headers = () => {
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
                     <Navbar.Collapse id='basic-navbar-nav'>
                         <Nav className='ms-auto'>
-                           <LinkContainer to="/login">
-                            <Nav.Link>
-                                <FaSignInAlt /> Sign In
-                            </Nav.Link>
-                           </LinkContainer>
-                           <LinkContainer to="/register">
-                            <Nav.Link>
-                                <FaSignOutAlt /> Sign Up
-                            </Nav.Link>
-                           </LinkContainer>
+                            {
+                                userInfo ?
+                                    (
+                                        <>
+                                            <NavDropdown title={userInfo.name} id='username'>
+                                                <LinkContainer to='/profile'>
+                                                    <NavDropdown.Item>
+                                                        Profile
+                                                    </NavDropdown.Item>
+                                                </LinkContainer>
+                                                <NavDropdown.Item>
+                                                    Log Out
+                                                </NavDropdown.Item>
+                                            </NavDropdown>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <LinkContainer to="/login">
+                                                <Nav.Link>
+                                                    <FaSignInAlt /> Sign In
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                            <LinkContainer to="/register">
+                                                <Nav.Link>
+                                                    <FaSignOutAlt /> Sign Up
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </>
+                                    )
+
+                            }
+
+
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
