@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const userInfoString = localStorage.getItem('userInfo');
 console.log(typeof (userInfoString));
 typeof (userInfoString)
+console.log(userInfoString);
+
 const initialState = {
     userInfo: userInfoString ?
         JSON.parse(userInfoString) :
@@ -13,6 +15,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setCredentials: (state, action) => {
+            console.log('action', action);
             state.userInfo = action.payload;
             localStorage.setItem('userInfo', JSON.stringify(action.payload))
         },
