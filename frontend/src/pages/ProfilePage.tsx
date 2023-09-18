@@ -5,6 +5,8 @@ import FormContainer from "../components/FormContainer";
 import { useDispatch, useSelector } from 'react-redux'
 import { setCredentials } from '../slices/authSlice';
 import { useUpdateUserMutation } from '../slices/userApiSlice';
+import { toast } from 'react-toastify'
+
 
 function ProfilePage() {
     const [name, setName] = useState('')
@@ -37,9 +39,9 @@ function ProfilePage() {
                     password,
                     token: userInfo.token
                 }).unwrap();
-                console.log('response pro',res); 
-                dispatch(setCredentials({...res,token:userInfo?.token}));
-                confirm('done')
+                console.log('response pro', res);
+                dispatch(setCredentials({ ...res, token: userInfo?.token }));
+                toast.success('Profile Updated')
 
             } catch (err: any) {
                 console.log(err.data);

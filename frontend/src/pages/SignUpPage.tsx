@@ -5,7 +5,7 @@ import FormContainer from "../components/FormContainer";
 import { useDispatch, useSelector } from 'react-redux'
 import { setCredentials } from '../slices/authSlice';
 import { useRegisterMutation } from '../slices/userApiSlice';
-
+import { toast } from "react-toastify";
 function RegisterPage() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -36,6 +36,7 @@ function RegisterPage() {
                 const res = await registerApiCall({ name, email, password }).unwrap();
                 dispatch(setCredentials({ ...res }));
                 navigate('/')
+                toast.success("Successfully Registered")
             } catch (err) {
                 console.log(err);
 

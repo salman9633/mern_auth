@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from "../components/FormContainer";
 import { useLoginMutation } from '../slices/userApiSlice'
 import { setCredentials } from '../slices/authSlice';
-
+import { toast } from 'react-toastify'
 
 // function parseHtmlToString(htmlString: any): string {
 //     const parser = new DOMParser();
@@ -49,6 +49,7 @@ function LogInPage() {
             }).unwrap();
             dispatch(setCredentials({ ...res }))
             navigate('/')
+            toast.success("Successfully Logged In")
         } catch (err) {
             console.log(err);
             // const error = parseHtmlToString(err.data)
